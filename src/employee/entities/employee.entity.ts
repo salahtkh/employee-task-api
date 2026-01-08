@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
 import { Task } from '../../task/entities/task.entity';
+import { Department } from '../../departement/entities/departement.entity';
 
 @Entity('employees')
 export class Employee {
@@ -17,4 +18,7 @@ export class Employee {
 
   @OneToMany(() => Task, task => task.employee)
   tasks: Task[];
+
+  @ManyToOne(() => Department, department => department.employees, { onDelete: 'SET NULL' })
+  department: Department;
 }
